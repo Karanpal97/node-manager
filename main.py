@@ -226,8 +226,13 @@ def unmap_domain(id: str, x=Depends(secure)):
     
 @app.post("/redeploy/{container_id}/{tag}")
 def redeploy_container(container_id: str, tag: str,x=Depends(secure)):
+    print("the container_is",container_id,tag)
     try:
         container = client.containers.get(container_id)
+        print("conatiner is ",container)
+        if not container:
+            print("container not fount")
+            return 
         image_url = container.attrs["Config"]["Image"]
         environment_variables = container.attrs["Config"]["Env"]
         memory_limit = container.attrs["HostConfig"]["Memory"]
