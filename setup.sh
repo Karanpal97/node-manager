@@ -2,6 +2,7 @@
 set -e
 
 PUBLIC_KEY=$1
+ENVIRONMENT=$2
 
 echo "Installing docker"
 
@@ -34,7 +35,7 @@ echo "Setting up caddy and node-manager"
 
 # Clone the Repository containing docker compose to start caddy and node manager
 if [ ! -d "node-manager" ]; then
-    git clone https://github.com/atominfra/node-manager.git
+    git clone https://github.com/Karanpal97/node-manager
 fi
 
 # Change directory to the cloned repository
@@ -42,6 +43,8 @@ cd node-manager
 
 # Create a .env file with the public key
 echo "PUBLIC_KEY=$PUBLIC_KEY" > .env
+echo "ENVIRONMENT=$ENVIRONMENT" >> .env
+
 
 # Start the caddy server and node manager
 sudo docker compose up -d
